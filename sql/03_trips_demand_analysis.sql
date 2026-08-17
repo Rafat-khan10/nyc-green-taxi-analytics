@@ -14,7 +14,8 @@ SELECT
   *,
   DENSE_RANK() OVER(PARTITION BY year,month_num ORDER BY total_trips DESC) AS day_of_week_rank
 FROM cte
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 2. Which time-of-day segment has the highest trip volume?
 
 WITH time_segment AS (
@@ -40,6 +41,8 @@ SELECT
   DENSE_RANK() OVER(ORDER BY total_trips DESC) AS time_segment_rank
 FROM time_segment 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 3. Which 10 hours of the day record the highest trip volumes?
 
 SELECT
