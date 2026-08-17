@@ -21,6 +21,8 @@ SELECT
 FROM zone_rank
 WHERE pickup_zone_rank <=10
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 2. What is the average revenue per trip and total trip volume for each borough?
 WITH cte AS (
 SELECT
@@ -40,6 +42,8 @@ SELECT
  DENSE_RANK() OVER(ORDER BY avg_revenue DESC) AS borough_rank
 FROM cte
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 3. Which time segments generate the highest trip volume within each borough?
 WITH cte AS (
 SELECT
@@ -68,7 +72,8 @@ SELECT
   *,
   DENSE_RANK() OVER(PARTITION BY borough ORDER BY total_trips DESC) AS rank_by_time_segment
 FROM cte
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 4. Which borough-to-borough routes generate the highest average revenue per trip?
   
 WITH cte AS (
@@ -100,7 +105,9 @@ SELECT
   *
 FROM cte2
 WHERE top_routes_rank <=5
-  
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 5. What percentage of total revenue is concentrated in the top-performing boroughs (cumulative revenue distribution)?
 
 WITH cte AS (
