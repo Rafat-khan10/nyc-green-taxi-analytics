@@ -13,6 +13,8 @@ FROM green_taxi
 GROUP BY payment_category
 ORDER BY avg_fare DESC
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 2. How does average fare differ between street-hail and dispatch (app/call) trips?
 
 SELECT
