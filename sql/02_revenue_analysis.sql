@@ -20,7 +20,8 @@ SELECT
   ROUND((current_month_revenue - previous_month_revenue)*100.0/NULLIF(previous_month_revenue,0),2) mon_growth
 FROM prev_month
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 2. What is the average revenue per trip across each quarter of the year?
 
 SELECT
@@ -30,7 +31,8 @@ SELECT
 FROM green_taxi
 GROUP BY year, quarter
 ORDER BY year ASC, quarter ASC
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 3. Which rate code category generates the highest average revenue per trip?
 
 WITH cte AS (
@@ -54,7 +56,8 @@ SELECT
  DENSE_RANK() OVER(ORDER BY avg_revenue DESC) AS rate_code_rank
 FROM cte
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 4. Which time-of-day segment generates the highest average revenue per trip?
 
 WITH cte AS (
@@ -78,7 +81,7 @@ SELECT
   *,
   DENSE_RANK() OVER(ORDER BY avg_revenue DESC) AS time_segment_rank
 FROM cte
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 5. How do weekday and weekend trips compare in terms of trip volume and average revenue?
 
