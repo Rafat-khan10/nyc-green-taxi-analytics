@@ -1,140 +1,208 @@
-# 🚕 NYC Green Taxi Analytics (2025–2026)
+🚕 NYC Green Taxi Analytics (2025–2026)
 
-**End-to-end data analysis project** covering 17 months of NYC Green Taxi trip data (Jan 2025 – May 2026, ~800K trips) using **SQL (PostgreSQL)** for analysis and **Power BI** for visualization — with a focus on revenue trends, demand patterns, congestion pricing impact, and data quality auditing.
+End-to-end data analysis project covering 17 months of NYC Green Taxi trip data (Jan 2025 – May 2026, ~800K trips) using SQL (PostgreSQL) for analysis and Power BI for visualization — with a focus on revenue trends, demand patterns, congestion pricing impact, and data quality.
 
----
+📑 Table of Contents
 
-## 📑 Table of Contents
+Project Overview
 
-- [Project Overview](#-project-overview)
-- [Business Problem](#-business-problem)
-- [Key Business Questions Explored](#-key-business-questions-explored)
-- [Dataset](#️-dataset)
-- [Data Cleaning & Quality Notes](#-data-cleaning--quality-notes)
-- [Tools & Tech Stack](#️-tools--tech-stack)
-- [Dashboard Preview](#-dashboard-preview)
-- [Key Findings](#-key-findings)
-- [Business Recommendations](#-business-recommendations)
-- [Repository Structure](#-repository-structure)
-- [How to Run](#️-how-to-run)
-- [Connect With Me](#-connect-with-me)
+Business Problem
 
----
+Key Business Questions Explored
 
-## 📌 Project Overview
+Dataset
 
-Green taxis (Street-Hail Liveries) were introduced by NYC TLC in 2013 to expand taxi access in the outer boroughs and upper Manhattan — areas historically underserved by yellow cabs. This project analyzes trip-level data to understand revenue performance, temporal demand patterns, and the real-world impact of NYC's Congestion Relief Zone (CRZ) toll, which took effect in January 2025 — a period this dataset fully covers.
+Data Cleaning & Quality Notes
 
-Using **SQL (PostgreSQL)** and **Power BI**, I explored revenue trends, demand patterns, borough/zone performance, and the fare impact of congestion pricing — translating raw trip records into a 3-page interactive dashboard and a set of actionable business findings.
+Tools & Tech Stack
 
----
+Dashboard Preview
 
-## 📌 Business Problem
+Screenshots
 
-Green taxi operators and city planners need to understand where and when demand is concentrated, how revenue behaves across time and geography, and what impact the 2025 congestion pricing policy has had on trip economics. This project examines trip-level data to answer: where is revenue being generated, when is demand highest, and how has a major regulatory change affected fare behavior in the Congestion Relief Zone.
+Key Findings
 
----
+Business Recommendations
 
-## ❓ Key Business Questions Explored
+Repository Structure
 
-1. How does monthly revenue trend, and which months show growth vs. decline?
-2. Which time-of-day segments generate the highest trip volume and revenue?
-3. Does trip volume correlate with revenue, or do they peak at different times?
-4. Which boroughs and zones drive the most trips and revenue?
-5. What fare premium (if any) applies to trips touching the Congestion Relief Zone?
-6. How does average fare per mile change across trip-distance buckets?
-7. What share of trips are street-hail vs. dispatch, and does that match Green Taxi's original mandate?
-8. Where are the data quality issues (missing/invalid values), and how were they handled?
+How to Run
 
-> ✨ *...and additional insights derived from 20+ SQL queries across 7 analysis categories.*
+Connect With Me
 
----
+📌 Project Overview
 
-## 🗂️ Dataset
+Green taxis (Street-Hail Liveries) were introduced by NYC TLC in 2013 to expand taxi access in the outer boroughs and upper Manhattan — areas historically underserved by yellow cabs. This project analyzes trip-level data to understand revenue performance, temporal demand patterns, and the impact of NYC's Congestion Relief Zone (CRZ) toll, which took effect in January 2025 — a period this dataset fully covers.
 
-| Property | Details |
-|---|---|
-| Source | [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) (official) |
-| Period | January 2025 – May 2026 (17 months) |
-| Total Rows | ~802,000 trips |
-| Format | Monthly Parquet files, merged into a single CSV |
-| Reference tables | [NYC TLC Taxi Zone Lookup](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) · [MTA Congestion Relief Zone Taxi Zones](https://data.ny.gov/Transportation/MTA-Central-Business-District-Taxi-Zones/yfdc-w5jh) |
+Using SQL (PostgreSQL) and Power BI, I explored revenue trends, demand patterns, borough/zone performance, and the fare impact of congestion pricing — translating raw trip records into a 3-page interactive dashboard and a set of business findings.
 
-**Note:** Raw data was sourced directly from NYC TLC and MTA official portals — no third-party or unverified sources were used.
+📌 Business Problem
 
----
+Green taxi operators and city planners need to understand where and when demand is concentrated, how revenue behaves across time and geography, and what impact a major policy change has had on trip economics. This project uses trip-level data to answer: where is revenue being generated, when is demand highest, and how has congestion pricing affected trips in the Congestion Relief Zone?
 
-## 🧹 Data Cleaning & Quality Notes
+❓ Key Business Questions Explored
+
+How does monthly revenue trend, and which months show growth vs. decline?
+
+Which time-of-day segments generate the highest trip volume and revenue?
+
+Does trip volume correlate with revenue, or do they peak at different times?
+
+Which boroughs and zones drive the most trips and revenue?
+
+What fare premium (if any) applies to trips touching the Congestion Relief Zone?
+
+How does average fare per mile change across trip-distance buckets?
+
+What share of trips are street-hail vs. dispatch, and does that match Green Taxi's original mandate?
+
+Where are the data quality issues (missing/invalid values), and how were they handled?
+
+✨ ...and additional insights derived from 20+ SQL queries across 7 analysis categories.
+
+🗂️ Dataset
+
+Property
+
+Details
+
+Source
+
+NYC TLC Trip Record Data (official)
+
+Period
+
+January 2025 – May 2026 (17 months)
+
+Total Rows
+
+~802,000 trips
+
+Format
+
+Monthly Parquet files, merged into a single CSV
+
+Reference tables
+
+NYC TLC Taxi Zone Lookup · MTA Congestion Relief Zone Taxi Zones
+
+Note: Raw data was sourced directly from NYC TLC and MTA official portals — no third-party or unverified sources were used.
+
+🧹 Data Cleaning & Quality Notes
 
 Data quality issues were identified, quantified, and explicitly flagged rather than silently dropped from the base dataset:
 
-| Issue | Scope | Handling |
-|---|---|---|
-| Negative `fare_amount` / `total_amount` | ~2,345 / 2,393 rows | Flagged; excluded only in fare-specific queries |
-| `trip_distance = 0` | 31,707 rows | Flagged as likely GPS/meter error; excluded from distance analysis |
-| `RatecodeID` missing or `99` (Unknown) | ~79,435 + 327 rows | Retained, labeled "Unknown" — not dropped |
-| `payment_type` = No Charge / Dispute / Unknown | Minor % of trips | Grouped as "Other" for reporting |
-| CBD zone flag | Derived | Cross-verified against official MTA polygon dataset (39 zones confirmed) |
+Issue
 
-Full notes: [`docs/data_quality_notes.md`](./docs/data_quality_notes.md)
+Scope
 
----
+Handling
 
-## 🛠️ Tools & Tech Stack
+Negative fare_amount / total_amount
 
-| Tool | Purpose |
-|---|---|
-| Python (Pandas) | Dataset merging & pre-processing |
-| PostgreSQL | Data storage & SQL queries |
-| pgAdmin 4 | Query execution & output |
-| Power BI | Interactive 3-page dashboard, DAX measures |
+~2,345 / 2,393 rows
 
----
+Flagged; excluded only in fare-specific queries
 
-## 📊 Dashboard Preview
+trip_distance = 0
+
+31,707 rows
+
+Flagged as likely GPS/meter error; excluded from distance analysis
+
+RatecodeID missing or 99 (Unknown)
+
+~79,435 + 327 rows
+
+Retained, labeled "Unknown" — not dropped
+
+payment_type = No Charge / Dispute / Unknown
+
+Minor % of trips
+
+Grouped as "Other" for reporting
+
+CBD zone flag
+
+Derived
+
+Cross-verified against official MTA polygon dataset (39 zones confirmed)
+
+🛠️ Tools & Tech Stack
+
+Tool
+
+Purpose
+
+Python (Pandas)
+
+Dataset merging & pre-processing
+
+PostgreSQL
+
+Data storage & SQL queries
+
+pgAdmin 4
+
+Query execution & output
+
+Power BI
+
+Interactive 3-page dashboard and DAX measures
+
+📊 Dashboard Preview
 
 The Power BI dashboard is organized into 3 pages, each answering a distinct business question:
 
-**Page 1 — Executive Overview**
+Page 1 — Executive Overview
 High-level snapshot: total revenue, trips, fare, and payment mix — with month-over-month revenue growth highlighted (negative-growth months flagged red).
 
-**Page 2 — Revenue & Time Analysis**
+Page 2 — Revenue & Time Analysis
 Demand and revenue patterns across hours, days, and time segments — including a weekend vs. weekday revenue split.
 
-**Page 3 — Location & Trip Analysis**
+Page 3 — Location & Trip Analysis
 Borough- and zone-level performance, the Congestion Relief Zone's fare impact, and trip-distance pricing patterns.
 
-📁 Full-resolution screenshots: [`dashboard/screenshots/`](./dashboard/screenshots) · Interactive file: [`dashboard/NYC_Green_Taxi_Dashboard.pbix`](./dashboard/NYC_Green_Taxi_Dashboard.pbix)
+🖼️ Screenshots
 
----
+Dashboard screenshots are available in the repository's root-level screenshots/ folder.
 
-## 🔍 Key Findings
+👉 View Dashboard Screenshots
 
-- 💰 **CBD trips punch above their weight** — only **8.6%** of trips touch the Congestion Relief Zone, yet they carry an **84% higher average fare** ($30.30 vs. $16.50)
-- 📍 **Demand is geographically concentrated** — East Harlem North & South alone drive **~25%** of all pickups, consistent with Green Taxi's restriction from core Manhattan (below ~96th St)
-- 🌙 **Volume and value don't peak together** — overnight trips (12–4 AM) earn **~26% higher** average revenue per trip despite the lowest trip volume, pointing to longer-distance or airport rides
-- 📅 **Weekday-dominant demand** — weekends generate only **24.6%** of revenue despite covering 28.6% of the week
-- 🚖 **~85% of trips are street-hail**, not dispatch — consistent with Green Taxi's original 2013 mandate to expand curb access in the outer boroughs
-- 🧾 **Data quality handled transparently** — ~10% of trips have no recorded payment method, traced to a single non-reporting vendor and labeled "Not Reported" rather than dropped
+📁 Interactive Power BI file: dashboard/NYC_Green_Taxi_Dashboard.pbix
 
-> ⚠️ *Key Findings will be updated as analysis progresses.*
+🔍 Key Findings
 
----
+💰 CBD trips punch above their weight — only 8.6% of trips touch the Congestion Relief Zone, yet they carry an 84% higher average fare ($30.30 vs. $16.50)
 
-## 💡 Business Recommendations
+📍 Demand is geographically concentrated — East Harlem North & South alone drive ~25% of all pickups, consistent with Green Taxi's restriction from core Manhattan (below ~96th St)
 
-1. **Prioritize driver positioning around CBD-adjacent zones during peak fare windows** — CBD trips generate disproportionately higher fares despite low volume; even a modest shift in driver availability toward these zones could meaningfully lift per-trip revenue.
-2. **Investigate overnight trip patterns for targeted fleet planning** — Overnight trips (12–4 AM) consistently out-earn daytime trips per ride. Understanding whether this is airport-driven or distance-driven could inform overnight driver incentives.
-3. **Treat East Harlem North & South as core operating zones, not incidental ones** — With a quarter of all pickups concentrated here, service reliability and driver availability in these zones directly affects overall fleet performance.
-4. **Monitor congestion pricing's fare impact over time** — With ~17 months of post-policy data, this is an early window into how CRZ pricing affects trip economics; continued tracking as more months of data become available would clarify whether the fare premium is stable or shifting.
-5. **Address the vendor-level payment reporting gap** — Since ~10% of missing payment data traces to a single vendor, this is a fixable data-collection issue rather than a systemic one — worth flagging to that vendor directly.
-6. **Use weekday-demand concentration to inform driver scheduling** — With weekends underperforming relative to their share of the week, incentive structures could be weighted toward weekday coverage rather than spread evenly.
+🌙 Volume and value don't peak together — overnight trips (12–4 AM) earn ~26% higher average revenue per trip despite the lowest trip volume, pointing to longer-distance or airport rides
 
----
+📅 Weekday-dominant demand — weekends generate only 24.6% of revenue despite covering 28.6% of the week
 
-## 📁 Repository Structure
+🚖 ~85% of trips are street-hail, not dispatch — consistent with Green Taxi's original 2013 mandate to expand curb access in the outer boroughs
 
-```
+🧾 Data quality handled transparently — ~10% of trips have no recorded payment method, traced to a single non-reporting vendor and labeled "Not Reported" rather than dropped
+
+⚠️ Key Findings will be updated as analysis progresses.
+
+💡 Business Recommendations
+
+Place more drivers near high-value CBD areas during busy periods. CBD trips have much higher average fares, so better driver coverage there could increase revenue per trip.
+
+Study overnight trips more closely. Trips between 12–4 AM earn more per ride. Checking how many are airport or long-distance trips could help with better overnight planning.
+
+Keep strong driver coverage in East Harlem North & South. These zones generate about a quarter of all pickups, so service levels there have a big effect on overall demand.
+
+Keep tracking the impact of congestion pricing. The current data gives an early view of the policy's effect on trip economics; more months of data will show whether the fare difference stays stable.
+
+Fix the missing payment data with the vendor involved. Since a large share of missing payment records comes from one vendor, this looks like a specific reporting issue that can be addressed directly.
+
+Use weekday demand patterns to improve driver scheduling. Since weekends contribute a smaller share of revenue, driver incentives and coverage can be adjusted toward stronger weekday demand.
+
+📁 Repository Structure
+
 nyc-green-taxi-analytics/
 │
 ├── README.md
@@ -154,33 +222,33 @@ nyc-green-taxi-analytics/
 │   └── cbd_zone_lookup.csv
 │
 ├── dashboard/
-│   ├── NYC_Green_Taxi_Dashboard.pbix
-│   └── screenshots/
-│       ├── page1_executive_overview.png
-│       ├── page2_revenue_time.png
-│       └── page3_location_trip.png
+│   └── NYC_Green_Taxi_Dashboard.pbix
 │
-└── docs/
-    └── data_quality_notes.md
-```
+└── screenshots/
+    ├── page1_executive_overview.png
+    ├── page2_revenue_time.png
+    └── page3_location_trip.png
 
----
+▶️ How to Run
 
-## ▶️ How to Run
+Clone this repository.
 
-1. Clone this repository
-2. Download the dataset from the `data/` folder
-3. Create a new database in PostgreSQL
-4. Import `green_taxi_trips_2025_2026.csv` into a table named `green_taxi`, and the two lookup CSVs into their own tables
-5. Run queries from the `sql/` folder
-6. Open `NYC_Green_Taxi_Dashboard.pbix` in Power BI Desktop
+Use the dataset and lookup files from the data/ folder.
 
----
+Create a new database in PostgreSQL.
 
-## 📬 Connect With Me
+Import green_taxi_trips_2025_2026.csv into a table named green_taxi, and import the two lookup CSVs into their own tables.
 
-**Rafat Khan** — Data Analyst
+Run the queries from the sql/ folder.
 
-- 💼 LinkedIn: https://www.linkedin.com/in/rafat-khan-7215953a1/
-- 🐙 GitHub: https://github.com/Rafat-khan10
-- 📧 Email: rafatkhan2210@gmail.com
+Open dashboard/NYC_Green_Taxi_Dashboard.pbix in Power BI Desktop.
+
+📬 Connect With Me
+
+Rafat Khan — Data Analyst
+
+💼 LinkedIn: https://www.linkedin.com/in/rafat-khan-7215953a1/
+
+🐙 GitHub: https://github.com/Rafat-khan10
+
+📧 Email: rafatkhan2210@gmail.com
