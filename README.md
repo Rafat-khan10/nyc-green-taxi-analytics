@@ -113,14 +113,6 @@ Borough and zone-level performance, the Congestion Relief Zone's fare impact, an
 
 ---
 
-## 🖼️ Screenshots
-
-View the dashboard screenshots here:
-
-👉 **[View Dashboard Screenshots](./screenshots/)**
-
----
-
 ## 🔍 Key Findings
 
 - 💰 **CBD trips punch above their weight** — only **8.6%** of trips touch the Congestion Relief Zone, yet they carry an **84% higher average fare** ($30.30 vs. $16.50)
