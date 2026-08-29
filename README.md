@@ -12,7 +12,6 @@
 - [Dataset](#️-dataset)
 - [Data Cleaning & Quality Notes](#-data-cleaning--quality-notes)
 - [Tools & Tech Stack](#️-tools--tech-stack)
-- [Dashboard Preview](#-dashboard-preview)
 - [Screenshots](#-screenshots)
 - [Key Findings](#-key-findings)
 - [Business Recommendations](#-business-recommendations)
@@ -98,18 +97,31 @@ Data quality issues were identified, quantified, and explicitly flagged rather t
 
 ---
 
-## 📊 Dashboard Preview
+## 📸 Screenshots
 
-The Power BI dashboard is organized into **3 pages**, each answering a distinct business question:
+Power BI Dashboard shows:
+- Revenue trends & month-over-month growth
+- Time-of-day & day-of-week demand patterns
+- Borough and zone-level performance
+- Congestion Relief Zone fare impact
+- Trip-distance pricing patterns
 
-**Page 1 — Executive Overview**  
+### Page 1 — Executive Overview
 High-level snapshot: total revenue, trips, average fare, and payment mix — with month-over-month revenue growth highlighted.
 
-**Page 2 — Revenue & Time Analysis**  
+![Executive Overview](./screenshots/page1_executive_overview.png)
+
+### Page 2 — Revenue & Time Analysis
 Demand and revenue patterns across hours, days, and time segments — including a weekend vs. weekday revenue split.
 
-**Page 3 — Location & Trip Analysis**  
+![Revenue & Time Analysis](./screenshots/page2_revenue_time.png)
+
+### Page 3 — Location & Trip Analysis
 Borough and zone-level performance, the Congestion Relief Zone's fare impact, and trip-distance pricing patterns.
+
+![Location & Trip Analysis](./screenshots/page3_location_trip.png)
+
+📁 Interactive file: [`dashboard/NYC_Green_Taxi_Dashboard.pbix`](./dashboard/NYC_Green_Taxi_Dashboard.pbix)
 
 ---
 
@@ -128,22 +140,22 @@ Borough and zone-level performance, the Congestion Relief Zone's fare impact, an
 
 ## 💡 Business Recommendations
 
-1. **Focus more drivers around CBD-adjacent areas during high-fare periods**  
+1. **Focus more drivers around CBD-adjacent areas during high-fare periods**
    CBD trips are a small share of total trips but generate much higher fares. Better driver availability in nearby areas could help increase revenue per trip.
 
-2. **Look more closely at overnight trips**  
+2. **Look more closely at overnight trips**
    Trips between 12–4 AM generate higher revenue per trip despite lower volume. Checking how many of these trips are airport-related or longer-distance could help improve overnight planning.
 
-3. **Keep strong coverage in East Harlem North & South**  
+3. **Keep strong coverage in East Harlem North & South**
    These two zones account for about a quarter of all pickups. Keeping enough drivers there can help maintain reliable service in the areas with the highest demand.
 
-4. **Keep tracking the effect of congestion pricing**  
+4. **Keep tracking the effect of congestion pricing**
    The current data shows an early picture of how the Congestion Relief Zone affects fares. More months of data will help confirm whether this pattern continues.
 
-5. **Follow up on the missing payment data**  
+5. **Follow up on the missing payment data**
    Around 10% of trips have no recorded payment method, and most of this missing data comes from one vendor. This should be reviewed with that vendor.
 
-6. **Use weekday demand when planning driver schedules**  
+6. **Use weekday demand when planning driver schedules**
    Weekdays generate a larger share of revenue than weekends. Driver scheduling and incentives can reflect this demand pattern instead of using the same approach every day.
 
 ---
